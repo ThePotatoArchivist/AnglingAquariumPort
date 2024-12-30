@@ -3,17 +3,17 @@
 	"id": "anglingaquariumport",
 	"version": "${version}",
 	"name": "Angling Aquarium Port",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Ports Angling's aquarium fluid rendering fix to later versions",
 	"authors": [
-		"Me!"
+		"ThePotatoArchivist"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://modrinth.com/mod/angling-aquarium-port",
+		"sources": "https://github.com/JosiahFu/AnglingAquariumPort"
 	},
-	"license": "CC0-1.0",
+	"license": "MIT",
 	"icon": "assets/anglingaquariumport/icon.png",
-	"environment": "client",
+	"environment": "*",
 	"entrypoints": {
 	},
 	"mixins": [

@@ -1,10 +1,12 @@
 package archives.tater.anglingaquariumport.mixin;
 
+import archives.tater.anglingaquariumport.AnglingAquariumPort;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
+import net.minecraft.block.SideShapeType;
 import net.minecraft.client.render.block.FluidRenderer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
@@ -25,6 +27,9 @@ public class FluidRendererMixin {
 			@Local(argsOnly = true) BlockPos pos,
 			@Local(argsOnly = true) Direction direction
 	) {
-		return original && !(world.getBlockState(pos.offset(direction)).isIn(ConventionalBlockTags.GLASS_BLOCKS));
+		if (!original) return false;
+		var offsetPos = pos.offset(direction);
+		var state = world.getBlockState(offsetPos);
+		return !state.isIn(ConventionalBlockTags.GLASS_BLOCKS) && !(state.isIn(AnglingAquariumPort.SIDED_GLASS_BLOCKS) && state.isSideSolid(world, offsetPos, direction.getOpposite(), SideShapeType.FULL));
 	}
 }

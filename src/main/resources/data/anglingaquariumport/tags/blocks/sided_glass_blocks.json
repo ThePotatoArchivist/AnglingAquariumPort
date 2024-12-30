@@ -1,0 +1,6 @@
+{
+  "values": [
+    { "required": false, "id": "create:framed_glass_trapdoor" },
+    { "required": false, "id": "create:framed_glass_door" }
+  ]
+}
