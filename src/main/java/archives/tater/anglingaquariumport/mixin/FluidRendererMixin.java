@@ -30,6 +30,6 @@ public class FluidRendererMixin {
 		if (!original) return false;
 		var offsetPos = pos.offset(direction);
 		var state = world.getBlockState(offsetPos);
-		return !state.isIn(ConventionalBlockTags.GLASS_BLOCKS) && !(state.isIn(AnglingAquariumPort.SIDED_GLASS_BLOCKS) && state.isSideSolid(world, offsetPos, direction.getOpposite(), SideShapeType.FULL));
+		return !AnglingAquariumPort.VANILLA_GLASS_BLOCKS.contains(state.getBlock()) && !state.isIn(ConventionalBlockTags.GLASS_BLOCKS) && !(state.isIn(AnglingAquariumPort.SIDED_GLASS_BLOCKS) && state.isSideSolid(world, offsetPos, direction.getOpposite(), SideShapeType.FULL));
 	}
 }
