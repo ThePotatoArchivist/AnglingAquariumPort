@@ -32,5 +32,5 @@ public class AnglingAquariumPort {
             Blocks.BLACK_STAINED_GLASS
     );
 
-    public static final TagKey<Block> SIDED_GLASS_BLOCKS = TagKey.of(RegistryKeys.BLOCK, new Identifier(MOD_ID, "sided_glass_blocks"));
+    public static final TagKey<Block> SIDED_GLASS_BLOCKS = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MOD_ID, "sided_glass_blocks"));
 }
