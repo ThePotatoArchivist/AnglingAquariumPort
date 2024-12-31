@@ -42,7 +42,7 @@ public class AnglingAquariumPort {
     public static final TagKey<Block> SIDED_GLASS_BLOCKS = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MOD_ID, "sided_glass_blocks"));
 
     public static boolean shouldCull(BlockRenderView world, BlockPos pos, FluidState fluidState, Direction direction) {
-        if (!fluidState.isIn(FluidTags.WATER)) return true;
+        if (!fluidState.isIn(FluidTags.WATER)) return false;
         var offsetPos = pos.offset(direction);
         var state = world.getBlockState(offsetPos);
         return AnglingAquariumPort.VANILLA_GLASS_BLOCKS.contains(state.getBlock()) || state.isIn(ConventionalBlockTags.GLASS_BLOCKS) || state.isIn(AnglingAquariumPort.SIDED_GLASS_BLOCKS) && state.isSideSolid(world, offsetPos, direction.getOpposite(), SideShapeType.FULL);
