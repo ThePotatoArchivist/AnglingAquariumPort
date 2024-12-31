@@ -1,10 +1,17 @@
 package archives.tater.anglingaquariumport;
 
+import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.SideShapeType;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.registry.RegistryKeys;
+import net.minecraft.registry.tag.FluidTags;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Direction;
+import net.minecraft.world.BlockRenderView;
 
 import java.util.List;
 
@@ -33,4 +40,11 @@ public class AnglingAquariumPort {
     );
 
     public static final TagKey<Block> SIDED_GLASS_BLOCKS = TagKey.of(RegistryKeys.BLOCK, Identifier.of(MOD_ID, "sided_glass_blocks"));
+
+    public static boolean shouldCull(BlockRenderView world, BlockPos pos, FluidState fluidState, Direction direction) {
+        if (!fluidState.isIn(FluidTags.WATER)) return true;
+        var offsetPos = pos.offset(direction);
+        var state = world.getBlockState(offsetPos);
+        return AnglingAquariumPort.VANILLA_GLASS_BLOCKS.contains(state.getBlock()) || state.isIn(ConventionalBlockTags.GLASS_BLOCKS) || state.isIn(AnglingAquariumPort.SIDED_GLASS_BLOCKS) && state.isSideSolid(world, offsetPos, direction.getOpposite(), SideShapeType.FULL);
+    }
 }

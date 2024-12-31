@@ -1,13 +1,13 @@
 package archives.tater.anglingaquariumport.mixin;
 
 import archives.tater.anglingaquariumport.AnglingAquariumPort;
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.tag.convention.v1.ConventionalBlockTags;
-import net.minecraft.block.SideShapeType;
 import net.minecraft.client.render.block.FluidRenderer;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.BlockRenderView;
@@ -23,13 +23,25 @@ public class FluidRendererMixin {
 	)
 	private static boolean hideGlassAdjacent(
 			boolean original,
+			@Local(argsOnly = true, ordinal = 0) FluidState fluidState,
 			@Local(argsOnly = true) BlockRenderView world,
 			@Local(argsOnly = true) BlockPos pos,
 			@Local(argsOnly = true) Direction direction
 	) {
 		if (!original) return false;
-		var offsetPos = pos.offset(direction);
-		var state = world.getBlockState(offsetPos);
-		return !AnglingAquariumPort.VANILLA_GLASS_BLOCKS.contains(state.getBlock()) && !state.isIn(ConventionalBlockTags.GLASS_BLOCKS) && !(state.isIn(AnglingAquariumPort.SIDED_GLASS_BLOCKS) && state.isSideSolid(world, offsetPos, direction.getOpposite(), SideShapeType.FULL));
+		return !AnglingAquariumPort.shouldCull(world, pos, fluidState, direction);
+	}
+
+	@ModifyExpressionValue(
+			method = "render",
+			at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/block/FluidRenderer;isSameFluid(Lnet/minecraft/fluid/FluidState;Lnet/minecraft/fluid/FluidState;)Z")
+	)
+	private boolean hideGlassAbove(
+			boolean original,
+			@Local(argsOnly = true) BlockRenderView world,
+			@Local(argsOnly = true) BlockPos pos,
+			@Local(argsOnly = true) FluidState fluidState
+	) {
+		return original || fluidState.getLevel() == 8 && AnglingAquariumPort.shouldCull(world, pos, fluidState, Direction.UP);
 	}
 }
