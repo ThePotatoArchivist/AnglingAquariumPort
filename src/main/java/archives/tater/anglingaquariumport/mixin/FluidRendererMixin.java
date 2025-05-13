@@ -25,7 +25,7 @@ public class FluidRendererMixin {
 	)
 	private boolean hideGlassAdjacent(BlockRenderView world, BlockPos pos, FluidState fluidState, BlockState blockState, Direction direction, FluidState neighborFluidState, Operation<Boolean> original) {
 		if (!original.call(world, pos, fluidState, blockState, direction, neighborFluidState)) return false;
-		return !AnglingAquariumPort.shouldCull(fluidState.getFluid()) || !AnglingAquariumPort.shouldCullFluid(world, pos, direction);
+		return !AnglingAquariumPort.shouldCull(fluidState) || !AnglingAquariumPort.shouldCullFluid(world, pos, direction);
 	}
 
 	@ModifyExpressionValue(
@@ -38,6 +38,6 @@ public class FluidRendererMixin {
 			@Local(argsOnly = true) BlockPos pos,
 			@Local(argsOnly = true) FluidState fluidState
 	) {
-		return original || fluidState.getLevel() == 8 && AnglingAquariumPort.shouldCull(fluidState.getFluid()) && AnglingAquariumPort.shouldCullFluid(world, pos, Direction.UP);
+		return original || fluidState.getLevel() == 8 && AnglingAquariumPort.shouldCull(fluidState) && AnglingAquariumPort.shouldCullFluid(world, pos, Direction.UP);
 	}
 }
