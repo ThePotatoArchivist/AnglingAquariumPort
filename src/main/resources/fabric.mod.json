@@ -9,7 +9,7 @@
 	],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/angling-aquarium-port",
-		"sources": "https://github.com/JosiahFu/AnglingAquariumPort"
+		"sources": "https://github.com/ThePotatoArchivist/AnglingAquariumPort"
 	},
 	"license": "MIT",
 	"icon": "assets/anglingaquariumport/icon.png",
@@ -23,7 +23,7 @@
 		}
 	],
 	"depends": {
-		"fabricloader": ">=0.16.14",
+		"fabricloader": ">=0.17.0",
 		"minecraft": ">=1.21.1 <1.21.5",
 		"java": ">=21",
 		"fabric-api": "*"
