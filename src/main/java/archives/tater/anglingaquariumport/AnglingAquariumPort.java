@@ -1,8 +1,8 @@
 package archives.tater.anglingaquariumport;
 
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.tag.client.v1.ClientTags;
 import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -33,14 +33,12 @@ public class AnglingAquariumPort implements ClientModInitializer {
     }
 
     public static boolean isCullingGlass(BlockGetter world, BlockPos pos, BlockState state, Direction direction) {
-        return isInWithLocalFallback(ConventionalBlockTags.GLASS_BLOCKS, state.getBlockHolder()) ||
-                (isInWithLocalFallback(AnglingAquariumPort.SIDED_GLASS_BLOCKS, state.getBlockHolder())
+        return isInWithLocalFallback(ConventionalBlockTags.GLASS_BLOCKS, state.getBlock()) ||
+                (isInWithLocalFallback(AnglingAquariumPort.SIDED_GLASS_BLOCKS, state.getBlock())
                         && state.isFaceSturdy(world, pos, direction.getOpposite(), SupportType.FULL));
     }
 
     @Override
     public void onInitializeClient() {
-        ClientTags.getOrCreateLocalTag(ConventionalBlockTags.GLASS_BLOCKS);
-        ClientTags.getOrCreateLocalTag(SIDED_GLASS_BLOCKS);
     }
 }
