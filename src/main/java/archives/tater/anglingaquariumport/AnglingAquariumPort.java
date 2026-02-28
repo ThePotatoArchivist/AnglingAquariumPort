@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.tag.convention.v2.ConventionalBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.BlockGetter;
@@ -20,7 +20,7 @@ import static net.fabricmc.fabric.api.tag.client.v1.ClientTags.isInWithLocalFall
 public class AnglingAquariumPort implements ClientModInitializer {
     public static final String MOD_ID = "anglingaquariumport";
 
-    public static final TagKey<Block> SIDED_GLASS_BLOCKS = TagKey.create(Registries.BLOCK, ResourceLocation.fromNamespaceAndPath(MOD_ID, "sided_glass_blocks"));
+    public static final TagKey<Block> SIDED_GLASS_BLOCKS = TagKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(MOD_ID, "sided_glass_blocks"));
 
     public static boolean shouldCull(FluidState fluid) {
         return fluid.is(FluidTags.WATER);
