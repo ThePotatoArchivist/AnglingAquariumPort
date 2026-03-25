@@ -26,16 +26,16 @@ public class AnglingAquariumPort implements ClientModInitializer {
         return fluid.is(FluidTags.WATER);
     }
 
-    public static boolean shouldCullFluid(BlockGetter world, BlockPos fluidPos, Direction direction) {
+    public static boolean shouldCullFluid(BlockGetter level, BlockPos fluidPos, Direction direction) {
         var offsetPos = fluidPos.relative(direction);
-        var state = world.getBlockState(offsetPos);
-        return isCullingGlass(world, offsetPos, state, direction);
+        var state = level.getBlockState(offsetPos);
+        return isCullingGlass(level, offsetPos, state, direction);
     }
 
-    public static boolean isCullingGlass(BlockGetter world, BlockPos pos, BlockState state, Direction direction) {
+    public static boolean isCullingGlass(BlockGetter level, BlockPos pos, BlockState state, Direction direction) {
         return isInWithLocalFallback(ConventionalBlockTags.GLASS_BLOCKS, state.getBlock()) ||
                 (isInWithLocalFallback(AnglingAquariumPort.SIDED_GLASS_BLOCKS, state.getBlock())
-                        && state.isFaceSturdy(world, pos, direction.getOpposite(), SupportType.FULL));
+                        && state.isFaceSturdy(level, pos, direction.getOpposite(), SupportType.FULL));
     }
 
     @Override

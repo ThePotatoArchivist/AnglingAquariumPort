@@ -31,7 +31,7 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
 
-//	implementation "net.caffeinemc:sodium-fabric:${project.sodium_version}+mc${project.minecraft_version}"
+	compileOnly "net.caffeinemc:sodium-fabric:${project.sodium_version}+mc${project.minecraft_version}"
 }
 
 processResources {
