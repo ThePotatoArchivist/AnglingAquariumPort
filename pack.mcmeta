@@ -2,8 +2,8 @@
   "pack": {
     "description": "Makes water against glass not blue",
     "pack_format": 15,
-    "supported_formats": [15, 84],
+    "supported_formats": [15, 999],
     "min_format": 15,
-    "max_format": [84, 0]
+    "max_format": [999, 999]
   }
 }
